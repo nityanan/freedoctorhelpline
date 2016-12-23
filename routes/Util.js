@@ -6,7 +6,6 @@ exports.getRequestParams  = function(req){
     var params = req.params || {};
     var body = req.body || {};
     var query = req.query || {};
-    console.log("body > > > > "+JSON.stringify(body))
     for(var key in params) {
         if (params.hasOwnProperty(key)) {
             allParams[key] = params[key];
@@ -22,7 +21,6 @@ exports.getRequestParams  = function(req){
             allParams[key] = body[key];
         }
     }
-    console.log("allParams  >>>> >> >> >>> >",allParams)
     Q.resolve(allParams)
     return Q.promise
 

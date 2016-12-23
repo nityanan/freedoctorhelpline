@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var signing_up = require('./routes/signing_up');
+var register = require('./routes/register');
 
 
 var routes = require('./routes/index');
@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/signing_up', signing_up);
+app.use('/register', register);
 //app.use('/users', users);
 //app.use('/admin', admin);
 
