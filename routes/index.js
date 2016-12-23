@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
   res.render('index');
     next()
 });
-router.post('/sign_in',function(req,res){
+router.post('/login',function(req,res){
     var db = req.app.locals.db
     return Util.getRequestParams(req).then(function (params) {
         paramsProvided = params;
@@ -20,12 +20,20 @@ router.post('/sign_in',function(req,res){
             return validateUser(params, db)
         }
     }).then(function (data) {
-        if(data){
-            req.path = "/home"
-            res.redirect('/home')
+        if(data._id){
+            res.send({
+                "error": false,
+                "user": {
+                    _id:data._id,
+                    name:data.name,
+                    created_at:new Date()
+                }
+            })
+            //req.path = "/home"
+            //res.redirect('/home')
         }
         else{
-            res.send("Either username or password is Wrong !!")
+            res.send(data)
         }
     })
 })
@@ -154,12 +162,16 @@ router.post('/reset', function (req, res) {
 function validateUser(params, db) {
     if (params && params.username && params.password) {
         return findAlreadySignUpUser(params, db).then(function (data) {
-            console.log(">>>>>>>>>>>>",data)
             if (data && data._id) {
-                return true;
+                return data;
             }
             else {
-                    return false
+                    return {
+                        "tag": "login",
+                        "success": 0,
+                        "error": 1,
+                        "error_msg" :"Either username or password is Wrong !!"
+                    }
             }
         })
     }
@@ -213,6 +225,7 @@ function updatePassword(params, db) {
 
 function findAlreadySignUpUser(params, db) {
     var d = q.defer()
+    console.log("<>><<<<<<<<<<<<"+JSON.stringify(params))
     db.collection('pl.users').findOne({name: params.username ,password: params.password}, function (err, doc) {
         console.log("220 >>>>>>>>>>>",doc)
         d.resolve(doc)
