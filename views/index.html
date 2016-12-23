@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<!--<script src="../public/javascripts/jquery-3.1.1.js"></script>-->
+<!--<script type="text/javascript" src="../public/javascripts/script.js" ></script>-->
+<body>
+<div style="
+    display: flex;
+">
+    <div>
+        <form action="/signing_up" method="post">
+            SignUp:<br>
+            <input type="text" name="username" placeholder="username..." value="abc">
+            <br><br>
+            <input type="text" name="password" placeholder="password..." value="abc">
+            <br><br>
+            <input type="text" name="repassword" placeholder="re-password..." value="abc">
+            <br><br>
+            <input type="submit" name="logup" value="Submit">
+        </form>
+    </div>
+    <div>
+        <form action="/sign_in" method="post">
+            Sign In :<br>
+            <input type="text" name="username" placeholder="username..." value="abc">
+            <br><br>
+            <input type="text" name="password" placeholder="password..." value="abc">
+            <br><br>
+            <br><br>
+            <input type="submit" name="login" value="Submit">
+        </form>
+    </div>
+    <div>
+        <form action="/forget_password" method="post" id="loc">
+            <br><br>
+            <input type="submit" name="forget_password" value="Forget Password">
+        </form>
+
+    </div>
+    <div>
+        <div> &#160;&#160;&#160;&#160;&#160;</div>
+    </div>
+    <div>
+        <form action="/uploadFile" method="post" enctype="multipart/form-data">
+            <br><br>
+            <input type="file" name="uploadFile"  multiple="multiple">
+            <br>
+            <br>
+            <br>
+            <input type="submit" name="save" value="Save">
+        </form>
+
+    </div>
+    <div>
+        <form id="location" method="get" >
+            <br><br>
+            <input type="text" name="location" id="locationName" >
+            <br>
+            <br>
+            <input type="submit" name="submit" value="submit">
+        </form>
+
+    </div>
+    <div>
+        <form action="/search" method="post">
+            Search Doctor:<br>
+            <input type="text" name="city" placeholder="city..." value="abc">
+            <br><br>
+            <input type="text" name="location" placeholder="location..." value="abc">
+            <br><br>
+            <input type="text" name="doctor" placeholder="doctor..." value="nitya">
+            <br><br>
+            <input type="submit" name="search" value="Submit">
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
