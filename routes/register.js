@@ -8,7 +8,7 @@ var ObjectID = require("mongodb").ObjectID
 var paramsProvided = {}
 var validateReturnData;
 
-router.post('/', function (req, res) {
+router.get('/', function (req, res) {
     var db = req.app.locals.db
     return Util.getRequestParams(req).then(function (params) {
         paramsProvided = params;
@@ -17,20 +17,26 @@ router.post('/', function (req, res) {
         }
     }).then(function (data) {
         validateReturnData = data
-        if (!data.error) {
-            return saveUserConnection(paramsProvided, res, db)
-        }
-        else {
+        if ( data && data.error) {
             res.send(data);
         }
+        else if(data && !data.error) {
+            return saveUserConnection(paramsProvided, res, db)
+        }
+        else{
+            res.send({
+                "error": 1,
+                "error_msg": "Unknown error occurred in registration!"
+            });
+        }
     }).then(function(token){
-        if(!validateReturnData.error){
+        if( validateReturnData && !(validateReturnData.error)){
             res.cookie("token", token, { maxAge: 10*60*1000 });
             return finduserDetails(paramsProvided,db)
 
         }
     }).then(function(userData){
-        if(userData._id){
+        if(userData && userData._id){
             //req.path = '/home'
             //res.redirect('/home')
             res.send(userData)

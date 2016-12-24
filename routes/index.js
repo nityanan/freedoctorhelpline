@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
   res.render('index');
     next()
 });
-router.post('/login',function(req,res){
+router.get('/login',function(req,res){
     var db = req.app.locals.db
     return Util.getRequestParams(req).then(function (params) {
         paramsProvided = params;
@@ -20,7 +20,7 @@ router.post('/login',function(req,res){
             return validateUser(params, db)
         }
     }).then(function (data) {
-        if(data._id){
+        if(data && data._id){
             res.send({
                 "error": false,
                 "user": {
@@ -32,13 +32,19 @@ router.post('/login',function(req,res){
             //req.path = "/home"
             //res.redirect('/home')
         }
-        else{
+        else if(data && data.error_msg){
             res.send(data)
+        }
+        else{
+            res.send({
+                "error": 1,
+                "error_msg": "Unknown error occurred in login!"
+            })
         }
     })
 })
 
-router.post('/search',function(req,res){
+router.get('/search',function(req,res){
     var db = req.app.locals.db
     return Util.getRequestParams(req).then(function (params) {
         paramsProvided = params;
@@ -68,7 +74,7 @@ router.get('/home', function (req, res) {
     })
 });
 
-router.post('/uploadFile', function(req,res) {
+router.get('/uploadFile', function(req,res) {
     var db = req.app.locals.db
     var gridStore = new GridStore(db, new ObjectID().toString(), "test_gs_getc_file", "w")
     gridStore.open(function(err, gridStore) {
@@ -120,10 +126,10 @@ router.get('/location',function(req,res){
 })
 
 
-router.post('/forget_password', function (req, res) {
+router.get('/forget_password', function (req, res) {
             res.render('forgetPassword');
 });
-router.post('/reset', function (req, res) {
+router.get('/reset', function (req, res) {
     var db = req.app.locals.db
     return Util.getRequestParams(req).then(function (params) {
         paramsProvided = params;
