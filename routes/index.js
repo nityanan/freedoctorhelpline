@@ -8,11 +8,11 @@ var Binary = require('mongodb').Binary
 var q = require('q')
 var paramsProvided = {};
 
-router.get('/', function(req, res, next) {
+router.all('/', function(req, res, next) {
   res.render('index');
     next()
 });
-router.get('/login',function(req,res){
+router.all('/login',function(req,res){
     var db = req.app.locals.db
     return Util.getRequestParams(req).then(function (params) {
         paramsProvided = params;
@@ -44,7 +44,7 @@ router.get('/login',function(req,res){
     })
 })
 
-router.get('/search',function(req,res){
+router.all('/search',function(req,res){
     var db = req.app.locals.db
     return Util.getRequestParams(req).then(function (params) {
         paramsProvided = params;
@@ -61,7 +61,7 @@ router.get('/search',function(req,res){
     })
 })
 
-router.get('/home', function (req, res) {
+router.all('/home', function (req, res) {
     var db = req.app.locals.db
     return validatingUserToken(req,db).then(function(data){
         printValue("40",data)
@@ -74,7 +74,7 @@ router.get('/home', function (req, res) {
     })
 });
 
-router.get('/uploadFile', function(req,res) {
+router.all('/uploadFile', function(req,res) {
     var db = req.app.locals.db
     var gridStore = new GridStore(db, new ObjectID().toString(), "test_gs_getc_file", "w")
     gridStore.open(function(err, gridStore) {
@@ -121,15 +121,15 @@ router.get('/uploadFile', function(req,res) {
 
     res.send("called uploading file ")
 })
-router.get('/location',function(req,res){
+router.all('/location',function(req,res){
     console.log("inside /location")
 })
 
 
-router.get('/forget_password', function (req, res) {
+router.all('/forget_password', function (req, res) {
             res.render('forgetPassword');
 });
-router.get('/reset', function (req, res) {
+router.all('/reset', function (req, res) {
     var db = req.app.locals.db
     return Util.getRequestParams(req).then(function (params) {
         paramsProvided = params;
