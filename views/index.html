@@ -7,7 +7,7 @@
     display: flex;
 ">
     <div>
-        <form action="/register" method="post">
+        <form action="/register" method="get">
             SignUp:<br>
             <input type="text" name="username" placeholder="username..." value="abck">
             <br><br>
@@ -19,7 +19,7 @@
         </form>
     </div>
     <div>
-        <form action="/login" method="post">
+        <form action="/login" method="get">
             Sign In :<br>
             <input type="text" name="username" placeholder="username..." value="nitya">
             <br><br>
@@ -30,7 +30,7 @@
         </form>
     </div>
     <div>
-        <form action="/forget_password" method="post" id="loc">
+        <form action="/forget_password" method="get" id="loc">
             <br><br>
             <input type="submit" name="forget_password" value="Forget Password">
         </form>
@@ -40,7 +40,7 @@
         <div> &#160;&#160;&#160;&#160;&#160;</div>
     </div>
     <div>
-        <form action="/uploadFile" method="post" enctype="multipart/form-data">
+        <form action="/uploadFile" method="get" enctype="multipart/form-data">
             <br><br>
             <input type="file" name="uploadFile"  multiple="multiple">
             <br>
@@ -61,7 +61,7 @@
 
     </div>
     <div>
-        <form action="/search" method="post">
+        <form action="/search" method="get">
             Search Doctor:<br>
             <input type="text" name="city" placeholder="city..." value="abc">
             <br><br>
